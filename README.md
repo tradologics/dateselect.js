@@ -15,13 +15,13 @@
 ## Examples
 
 #### Date selector
-<img src="https://github.com/tradologics/dateselectjs/blob/main/gifs/date.gif" height="300">
+<img src="https://github.com/tradologics/dateselect.js/blob/main/gifs/date.gif" height="300">
 
 #### Date-time selector
-<img src="https://github.com/tradologics/dateselectjs/blob/main/datetime.gif" height="300">
+<img src="https://github.com/tradologics/dateselect.js/blob/main/datetime.gif" height="300">
 
 #### Date-range selector
-<img src="https://github.com/tradologics/dateselectjs/blob/main/daterange.gif" height="300">
+<img src="https://github.com/tradologics/dateselect.js/blob/main/daterange.gif" height="300">
 
 ---
 
