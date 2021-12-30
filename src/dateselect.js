@@ -191,18 +191,18 @@
 
     dsjs.setFromMobile = (element) => {
         var value = '',
-            componentType = element.getAttribute('data-dsjs');
+            componentType = element.attr('data-dsjs');
 
         if (componentType == 'date') {
-            getNextNode(element.parentNode, 'input', 'dsjs').setAttribute('data-value', element.value);
+            getNextNode(element.parentNode, 'input', 'dsjs').attr('data-value', element.value);
             return;
         }
 
         if (componentType == 'datetime') {
             // enforce min/max
             var originalElement = getNextNode(element.parentNode, 'input', 'dsjs');
-            var minDate = Date.parse(originalElement.getAttribute('dsjs-min')),
-                maxDate = Date.parse(originalElement.getAttribute('dsjs-max')),
+            var minDate = Date.parse(originalElement.attr('dsjs-min')),
+                maxDate = Date.parse(originalElement.attr('dsjs-max')),
                 selectedDate = Date.parse(element.value);
 
             if (selectedDate < minDate) {
@@ -214,7 +214,7 @@
 
             selectedDate = new Date(selectedDate);
             element.value = `${selectedDate.getFullYear()}-${zeroPad(selectedDate.getMonth() + 1, 2)}-${zeroPad(selectedDate.getDate(), 2)}T${zeroPad(selectedDate.getHours(), 2)}:${zeroPad(selectedDate.getMinutes(), 2)}`;
-            getNextNode(element.parentNode, 'input', 'dsjs').setAttribute('data-value', element.value+'+00:00');
+            getNextNode(element.parentNode, 'input', 'dsjs').attr('data-value', element.value+'+00:00');
         }
 
         if (componentType == 'daterange') {
@@ -229,15 +229,15 @@
                 endInt = parseInt(end.replaceAll('-', ''));
 
             if (startInt > endInt) {
-                rangeStart.value = rangeStart.getAttribute('data-value');
-                rangeEnd.value = rangeEnd.getAttribute('data-value');
+                rangeStart.value = rangeStart.attr('data-value');
+                rangeEnd.value = rangeEnd.attr('data-value');
                 insertAfter(
                     '<div class="dsjs-error">Invalid range (start date should be before end date)</div>',
                     element.parentNode.querySelector('input:last-of-type'));
             }
 
             var originalElement = getNextNode(element.parentNode, 'input', 'dsjs');
-            originalElement.setAttribute('data-value', start + '~' + end);
+            originalElement.attr('data-value', start + '~' + end);
             return;
         }
     };
@@ -253,50 +253,50 @@
 
         if (["Android", "iOS"].indexOf(os) === -1) {
             elements.forEach(function(element) {
-                element.setAttribute('datajs-init', 'true');
-                element.setAttribute('readonly', 'readonly');
+                element.attr('datajs-init', 'true');
+                element.attr('readonly', 'readonly');
                 element.className = element.className.replace(' dsjs-input', '') + ' dsjs-input';
                 element.addEventListener('click', showWidget);
 
-                if (element.getAttribute('dsjs-min').toLowerCase() == 'today') {
-                    element.setAttribute('dsjs-min', `${today.getUTCFullYear()}-${zeroPad(today.getUTCMonth()+1)}-${zeroPad(today.getUTCDate())}`);
-                    if (element.getAttribute('dsjs-type') == 'datetime') {
-                        element.setAttribute('dsjs-min', `${element.getAttribute('dsjs-min')}T${zeroPad(today.getUTCHours())}:${zeroPad(today.getUTCMinutes())}:${zeroPad(today.getUTCSeconds())}+00:00`);
+                if (element.attr('dsjs-min').toLowerCase() == 'today') {
+                    element.attr('dsjs-min', `${today.getUTCFullYear()}-${zeroPad(today.getUTCMonth()+1)}-${zeroPad(today.getUTCDate())}`);
+                    if (element.attr('dsjs-type') == 'datetime') {
+                        element.attr('dsjs-min', `${element.attr('dsjs-min')}T${zeroPad(today.getUTCHours())}:${zeroPad(today.getUTCMinutes())}:${zeroPad(today.getUTCSeconds())}+00:00`);
                     }
                 }
-                if (element.getAttribute('dsjs-max').toLowerCase() == 'today') {
-                    element.setAttribute('dsjs-max', `${today.getUTCFullYear()}-${zeroPad(today.getUTCMonth()+1)}-${zeroPad(today.getUTCDate())}`);
-                    if (element.getAttribute('dsjs-type') == 'datetime') {
-                        element.setAttribute('dsjs-max', `${element.getAttribute('dsjs-max')}T${zeroPad(today.getUTCHours())}:${zeroPad(today.getUTCMinutes())}:${zeroPad(today.getUTCSeconds())}+00:00`);
+                if (element.attr('dsjs-max').toLowerCase() == 'today') {
+                    element.attr('dsjs-max', `${today.getUTCFullYear()}-${zeroPad(today.getUTCMonth()+1)}-${zeroPad(today.getUTCDate())}`);
+                    if (element.attr('dsjs-type') == 'datetime') {
+                        element.attr('dsjs-max', `${element.attr('dsjs-max')}T${zeroPad(today.getUTCHours())}:${zeroPad(today.getUTCMinutes())}:${zeroPad(today.getUTCSeconds())}+00:00`);
                     }
                 }
 
                 // add placeholder
-                if (!element.getAttribute('placeholder')) {
-                    var date, componentValue, componentType = element.getAttribute('dsjs-type');
-                    var monthNames = (element.getAttribute('dsjs-month-format') == 'full') ? fullMonthNames : shortMonthNames;
+                if (!element.attr('placeholder')) {
+                    var date, componentValue, componentType = element.attr('dsjs-type');
+                    var monthNames = (element.attr('dsjs-month-format') == 'full') ? fullMonthNames : shortMonthNames;
 
                     if (componentType == 'date') {
-                        componentValue = element.getAttribute('dsjs-date');
+                        componentValue = element.attr('dsjs-date');
                         date = componentValue ? new Date(Date.parse(componentValue)) : new Date();
-                        element.setAttribute('placeholder', `${monthNames[date.getUTCMonth()+1]} ${date.getUTCDate()}, ${date.getUTCFullYear()}`);
+                        element.attr('placeholder', `${monthNames[date.getUTCMonth()+1]} ${date.getUTCDate()}, ${date.getUTCFullYear()}`);
                     }
                     else if (componentType == 'daterange') {
-                        componentValue = element.getAttribute('dsjs-daterange-start') || element.getAttribute('dsjs-daterange-min');
+                        componentValue = element.attr('dsjs-daterange-start') || element.attr('dsjs-daterange-min');
                         var start = componentValue ? new Date(Date.parse(componentValue)) : new Date();
-                        componentValue = element.getAttribute('dsjs-daterange-end') || element.getAttribute('dsjs-daterange-max');
+                        componentValue = element.attr('dsjs-daterange-end') || element.attr('dsjs-daterange-max');
                         var end = componentValue ? new Date(Date.parse(componentValue)) : new Date();
-                        element.setAttribute('placeholder', `${monthNames[start.getUTCMonth()+1]} ${start.getUTCDate()}, ${start.getUTCFullYear()} - ${monthNames[end.getUTCMonth()+1]} ${end.getUTCDate()}, ${end.getUTCFullYear()}`);
+                        element.attr('placeholder', `${monthNames[start.getUTCMonth()+1]} ${start.getUTCDate()}, ${start.getUTCFullYear()} - ${monthNames[end.getUTCMonth()+1]} ${end.getUTCDate()}, ${end.getUTCFullYear()}`);
                     }
                     else if (componentType == 'datetime') {
-                        componentValue = element.getAttribute('dsjs-datetime');
+                        componentValue = element.attr('dsjs-datetime');
                         date = componentValue ? new Date(Date.parse(componentValue)) : new Date();
 
                         var hours = date.getUTCHours();
                         var minutes = date.getUTCMinutes();
                         hours = hours % 12;
                         var strTime = zeroPad(hours ? hours : 12) + ':' + zeroPad(minutes) + ':' + zeroPad(date.getUTCSeconds()) + ' ' + (hours >= 12 ? 'PM' : 'AM');
-                        element.setAttribute('placeholder', `${monthNames[date.getUTCMonth()+1]} ${date.getUTCDate()}, ${date.getUTCFullYear()} ${strTime} (UTC)`);
+                        element.attr('placeholder', `${monthNames[date.getUTCMonth()+1]} ${date.getUTCDate()}, ${date.getUTCFullYear()} ${strTime} (UTC)`);
                     }
                 }
             });
@@ -305,31 +305,31 @@
 
         var nameCounter = 1;
         elements.forEach(function(element) {
-            var component, componentType = element.getAttribute('dsjs-type');
+            var component, componentType = element.attr('dsjs-type');
 
             var fieldName = 'dsjs-'+ zeroPad(nameCounter);
             nameCounter++;
 
-            element.setAttribute('datajs-init', 'true');
+            element.attr('datajs-init', 'true');
             // replace component with mobile native
             if (componentType === 'date' || componentType === 'daterange') {
                 component = '<input type="date" data-dsjs="'+ componentType +'" name="_'+ fieldName +'" ';
                 component += ' onchange="dsjs.setFromMobile(this);"';
                 try {
-                    component += ' min="'+ element.getAttribute('dsjs-min').split('T')[0] +'" ';
+                    component += ' min="'+ element.attr('dsjs-min').split('T')[0] +'" ';
                 } catch(er) {}
                 try {
-                    component += ' max="'+ element.getAttribute('dsjs-max').split('T')[0] +'" ';
+                    component += ' max="'+ element.attr('dsjs-max').split('T')[0] +'" ';
                 } catch(er) {}
                 if (componentType === 'daterange') {
                     try {
-                        component += ' value="'+ element.getAttribute('dsjs-daterange-start').split('T')[0] +'" ';
-                        component += ' data-value="'+ element.getAttribute('dsjs-daterange-start').split('T')[0] +'" ';
+                        component += ' value="'+ element.attr('dsjs-daterange-start').split('T')[0] +'" ';
+                        component += ' data-value="'+ element.attr('dsjs-daterange-start').split('T')[0] +'" ';
                     } catch(er) {}
                 } else {
                     try {
-                        component += ' value="'+ element.getAttribute('dsjs-date').split('T')[0] +'" ';
-                        component += ' data-value="'+ element.getAttribute('dsjs-date').split('T')[0] +'" ';
+                        component += ' value="'+ element.attr('dsjs-date').split('T')[0] +'" ';
+                        component += ' data-value="'+ element.attr('dsjs-date').split('T')[0] +'" ';
                     } catch(er) {}
                 }
                 component += '>';
@@ -338,14 +338,14 @@
                     component += '<span> - </span><input type="date" data-dsjs="daterange" name="_'+ fieldName +'-end" ';
                     component += ' onchange="dsjs.setFromMobile(this);"';
                     try {
-                        component += ' min="'+ element.getAttribute('dsjs-min').split('T')[0] +'" ';
+                        component += ' min="'+ element.attr('dsjs-min').split('T')[0] +'" ';
                     } catch(er) {}
                     try {
-                        component += ' max="'+ element.getAttribute('dsjs-max').split('T')[0] +'" ';
+                        component += ' max="'+ element.attr('dsjs-max').split('T')[0] +'" ';
                     } catch(er) {}
                     try {
-                        component += ' value="'+ element.getAttribute('dsjs-daterange-end').split('T')[0] +'" ';
-                        component += ' data-value="'+ element.getAttribute('dsjs-daterange-end').split('T')[0] +'" ';
+                        component += ' value="'+ element.attr('dsjs-daterange-end').split('T')[0] +'" ';
+                        component += ' data-value="'+ element.attr('dsjs-daterange-end').split('T')[0] +'" ';
                     } catch(er) {}
 
                     component += '>';
@@ -355,13 +355,13 @@
                 component = '<input type="datetime-local" data-dsjs="'+ componentType +'" name="_'+ fieldName +'" ';
                 component += ' onchange="dsjs.setFromMobile(this);"';
                 try {
-                    component += ' min="'+ element.getAttribute('dsjs-min') +'" ';
+                    component += ' min="'+ element.attr('dsjs-min') +'" ';
                 } catch(er) {}
                 try {
-                    component += ' max="'+ element.getAttribute('dsjs-max') +'" ';
+                    component += ' max="'+ element.attr('dsjs-max') +'" ';
                 } catch(er) {}
                 try {
-                    var dt = new Date(Date.parse(element.getAttribute('dsjs-datetime')));
+                    var dt = new Date(Date.parse(element.attr('dsjs-datetime')));
                     dt = `${dt.getUTCFullYear()}-${zeroPad(dt.getUTCMonth()+1)}-${zeroPad(dt.getUTCDate())}T${zeroPad(dt.getUTCHours())}:${zeroPad(dt.getUTCMinutes())}`;
                     component += ' value="'+ dt +'" ';
                     component += ' data-value="'+ dt +'" ';
@@ -380,15 +380,15 @@
         dsjs.element = element;
 
         // use desktop components
-        var monthNames = (element.getAttribute('dsjs-month-format') == 'full') ? fullMonthNames : shortMonthNames;
+        var monthNames = (element.attr('dsjs-month-format') == 'full') ? fullMonthNames : shortMonthNames;
 
-        componentType = element.getAttribute('dsjs-type');
+        componentType = element.attr('dsjs-type');
         var template = templateWrapper;
         var innerTemplate = templateCalendar.replace('{{id}}', "start-date");
 
         if (componentType != 'datetime') {
-            element.setAttribute('dsjs-timezone', 'false');
-            element.setAttribute('dsjs-timestamp', 'false');
+            element.attr('dsjs-timezone', 'false');
+            element.attr('dsjs-timestamp', 'false');
         }
         if (componentType == 'daterange') {
             innerTemplate += templateCalendar.replace('{{id}}', "end-date");;
@@ -397,13 +397,13 @@
         else if (componentType == 'datetime') {
             innerTemplate += templateTime;
             template = template.replace('{{header}}', 'Choose date and time...');
-            var timezone = (element.getAttribute('dsjs-timezone') === 'true');
+            var timezone = (element.attr('dsjs-timezone') === 'true');
             if (timezone) {
                 innerTemplate = innerTemplate.replace('{{timezone}}', templateTimezone);
             } else {
                 innerTemplate = innerTemplate.replace('{{timezone}}', '');
             }
-            var timestamp = (element.getAttribute('dsjs-timestamp') === 'true');
+            var timestamp = (element.attr('dsjs-timestamp') === 'true');
             if (timestamp) {
                 innerTemplate = innerTemplate.replace('{{timestamp}}', templateTimestamp);
             } else {
@@ -417,15 +417,15 @@
         template = template.replace('{{components}}', innerTemplate);
 
         // add year selector
-        var minDate = new Date(Date.parse(element.getAttribute('dsjs-min')));
-        var maxDate = new Date(Date.parse(element.getAttribute('dsjs-max')));
+        var minDate = new Date(Date.parse(element.attr('dsjs-min')));
+        var maxDate = new Date(Date.parse(element.attr('dsjs-max')));
         var options = '';
         for (let year = minDate.getUTCFullYear(); year <= maxDate.getUTCFullYear(); year++) {
             options += '<option>'+ year +'</option>';
         }
         template = template.replaceAll('{{years}}', options);
 
-        if (componentType == 'datetime' && element.getAttribute('dsjs-timezone') == 'true') {
+        if (componentType == 'datetime' && element.attr('dsjs-timezone') == 'true') {
             template = template.replace('{{timezone}}', templateTimezone);
         }
 
@@ -433,9 +433,9 @@
         container.innerHTML = template;
 
         // limit epoch
-        if (componentType == 'datetime' && element.getAttribute('dsjs-timestamp') === 'true') {
-            container.querySelector('[name=epoch]').setAttribute('min', minDate.getTime()/1000);
-            container.querySelector('[name=epoch]').setAttribute('max', maxDate.getTime()/1000);
+        if (componentType == 'datetime' && element.attr('dsjs-timestamp') === 'true') {
+            container.querySelector('[name=epoch]').attr('min', minDate.getTime()/1000);
+            container.querySelector('[name=epoch]').attr('max', maxDate.getTime()/1000);
         }
 
         // slect date
@@ -443,35 +443,35 @@
 
         if (componentType == 'date') {
             table = container.querySelector('.dsjs-calendar table');
-            selectedDate = new Date(Date.parse(element.getAttribute('dsjs-date')));
+            selectedDate = new Date(Date.parse(element.attr('dsjs-date')));
             month = selectedDate.getUTCMonth() + 1;
             year = selectedDate.getUTCFullYear();
-            showCalendar(table, year, month, element.getAttribute('dsjs-date'));
+            showCalendar(table, year, month, element.attr('dsjs-date'));
             setSelectValue(table.querySelector('.select-year'), year);
             setSelectValue(table.querySelector('.select-month'), month);
         }
 
         else if (componentType == 'daterange') {
             table = container.querySelector('.dsjs-calendar#start-date table');
-            selectedDate = new Date(Date.parse(element.getAttribute('dsjs-daterange-start')));
+            selectedDate = new Date(Date.parse(element.attr('dsjs-daterange-start')));
             month = selectedDate.getUTCMonth() + 1;
             year = selectedDate.getUTCFullYear();
-            showCalendar(table, year, month, element.getAttribute('dsjs-daterange-start'));
+            showCalendar(table, year, month, element.attr('dsjs-daterange-start'));
             setSelectValue(table.querySelector('.select-year'), year);
             setSelectValue(table.querySelector('.select-month'), month);
 
             table = container.querySelector('.dsjs-calendar#end-date table');
-            selectedDate = new Date(Date.parse(element.getAttribute('dsjs-daterange-end')));
+            selectedDate = new Date(Date.parse(element.attr('dsjs-daterange-end')));
             month = selectedDate.getUTCMonth() + 1;
             year = selectedDate.getUTCFullYear();
-            showCalendar(table, year, month, element.getAttribute('dsjs-daterange-end'));
+            showCalendar(table, year, month, element.attr('dsjs-daterange-end'));
             setSelectValue(table.querySelector('.select-year'), year);
             setSelectValue(table.querySelector('.select-month'), month);
         }
 
         else if (componentType == 'datetime') {
             table = container.querySelector('.dsjs-calendar table');
-            selectedDate = new Date(Date.parse(element.getAttribute('dsjs-datetime')));
+            selectedDate = new Date(Date.parse(element.attr('dsjs-datetime')));
             month = selectedDate.getUTCMonth() + 1;
             year = selectedDate.getUTCFullYear();
             datetime = `${year}-${zeroPad(month)}-${zeroPad(selectedDate.getUTCDate())}`;
@@ -491,12 +491,12 @@
             // }
 
             if (timezone) {
-                var epoch = Date.parse(element.getAttribute('dsjs-datetime')) / 1000;
-                var tz = element.getAttribute('dsjs-datetime').split(/\+|-/).pop().split(':');
+                var epoch = Date.parse(element.attr('dsjs-datetime')) / 1000;
+                var tz = element.attr('dsjs-datetime').split(/\+|-/).pop().split(':');
                 if (tz.length == 2) {
                     var tzOffset = parseInt(tz[0]) +'.'+ (tz[1]/60).toString().replace('0.', '');
                     tzOffset = parseFloat(tzOffset, 10);
-                    if (element.getAttribute('dsjs-datetime').indexOf("+") === -1) {
+                    if (element.attr('dsjs-datetime').indexOf("+") === -1) {
                         tzOffset = -tzOffset;
                     }
                     epoch += (tzOffset * 3600);
@@ -522,7 +522,7 @@
                     element.className = element.className.replace('invalid', '').replace('valid', '');
 
                     // min/max dates
-                    var selectedDate = parseInt(event.target.getAttribute('data-date'));
+                    var selectedDate = parseInt(event.target.attr('data-date'));
                     if (selectedDate < dateAsInt(minDate)) {
                         selectedDate = dateAsInt(minDate);
                     }
@@ -532,13 +532,13 @@
 
                     var btnDate = selectedDate.toString().replace(/(\d{4})(\d{2})(\d{2})/g, '$1-$2-$3');
                     var btnData = btnDate.split('-');
-                    element.setAttribute('dsjs-date', btnDate);
+                    element.attr('dsjs-date', btnDate);
 
                     element.value = `${monthNames[btnData[1]]} ${btnData[2]}, ${btnData[0]}`;
-                    element.setAttribute('data-value', `${btnData[0]}-${btnData[1]}-${btnData[2]}`);
+                    element.attr('data-value', `${btnData[0]}-${btnData[1]}-${btnData[2]}`);
                     element.classList += ' valid';
                     removeNode(container);
-                    element.setAttribute('data-selected', 'true');
+                    element.attr('data-selected', 'true');
                 }
             });
         }
@@ -562,13 +562,13 @@
                 container.querySelector('button.primary').disabled = false;
             }
 
-            dsjs.btnDate = element.getAttribute('dsjs-datetime').split(' ')[0].split('T')[0];
+            dsjs.btnDate = element.attr('dsjs-datetime').split(' ')[0].split('T')[0];
             container.querySelector('tbody').addEventListener('click', function(event){
                 event.preventDefault();
                 if (event.target.tagName == 'BUTTON') {
 
                      // min/max dates
-                     var selectedDate = parseInt(event.target.getAttribute('data-date'));
+                     var selectedDate = parseInt(event.target.attr('data-date'));
                      if (selectedDate < dateAsInt(minDate)) {
                          selectedDate = dateAsInt(minDate);
                      }
@@ -616,14 +616,14 @@
                 if (hour24 == 24) hour24 = 0;
 
                 var datetime = `${year}-${zeroPad(month)}-${zeroPad(day)}T${zeroPad(hour24)}:${zeroPad(minutes)}:${zeroPad(seconds)}${decimal2tzOffset(utcOffset)}`;
-                element.setAttribute('dsjs-datetime', datetime);
+                element.attr('dsjs-datetime', datetime);
                 container.querySelector('input[name=epoch]').value = Date.parse(datetime)/1000;
                 element.value = `${monthNames[month]} ${zeroPad(day)}, ${year} @ ${zeroPad(hours)}:${zeroPad(minutes)}:${zeroPad(seconds)} ${ampm} (${timezone})`;
 
-                element.setAttribute('data-value', `${year}-${month}-${day}T${zeroPad(hour24)}:${zeroPad(minutes)}:${zeroPad(seconds)}${decimal2tzOffset(utcOffset)}`);
+                element.attr('data-value', `${year}-${month}-${day}T${zeroPad(hour24)}:${zeroPad(minutes)}:${zeroPad(seconds)}${decimal2tzOffset(utcOffset)}`);
                 element.classList += ' valid';
                 removeNode(container);
-                element.setAttribute('data-selected', 'true');
+                element.attr('data-selected', 'true');
             });
         }
 
@@ -644,7 +644,7 @@
                     });
 
                     // min/max dates
-                    var selectedDate = parseInt(event.target.getAttribute('data-date'));
+                    var selectedDate = parseInt(event.target.attr('data-date'));
                     if (selectedDate < dateAsInt(minDate)) {
                         selectedDate = dateAsInt(minDate);
                     }
@@ -674,7 +674,7 @@
                     });
 
                     // min/max dates
-                    var selectedDate = parseInt(event.target.getAttribute('data-date'));
+                    var selectedDate = parseInt(event.target.attr('data-date'));
                     if (selectedDate < dateAsInt(minDate)) {
                         selectedDate = dateAsInt(minDate);
                     }
@@ -696,7 +696,7 @@
                     setDateRange(dsjs.startDate, dsjs.endDate, element, container);
                 }
             });
-            element.setAttribute('data-selected', 'true');
+            element.attr('data-selected', 'true');
         }
 
         document.addEventListener('mouseup', function(event){
@@ -726,8 +726,8 @@
             return;
         }
         element.value = start.formatted + ' - ' + end.formatted;
-        element.setAttribute('data-value', `${start.year}-${zeroPad(start.month)}-${zeroPad(start.day)}~${end.year}-${zeroPad(end.month)}-${zeroPad(end.day)}`);
-        element.setAttribute('data-daterange', element.getAttribute('data-value'));
+        element.attr('data-value', `${start.year}-${zeroPad(start.month)}-${zeroPad(start.day)}~${end.year}-${zeroPad(end.month)}-${zeroPad(end.day)}`);
+        element.attr('data-daterange', element.attr('data-value'));
 
         if (startInt > endInt) {
             container.querySelector('header').innerHTML = '<span style="font-weight:500;color:#df3a3a">Invalid range (start date should be before end date)</span>';
@@ -748,10 +748,10 @@
             return;
         }
         if (!isNaN(startInt)) {
-            element.setAttribute('dsjs-daterange-start', `${start.year}-${zeroPad(start.month)}-${zeroPad(start.day)}`);
+            element.attr('dsjs-daterange-start', `${start.year}-${zeroPad(start.month)}-${zeroPad(start.day)}`);
         }
         if (!isNaN(endInt)) {
-            element.setAttribute('dsjs-daterange-end', `${end.year}-${zeroPad(end.month)}-${zeroPad(end.day)}`);
+            element.attr('dsjs-daterange-end', `${end.year}-${zeroPad(end.month)}-${zeroPad(end.day)}`);
         }
         element.classList += ' valid';
         removeNode(container);
@@ -828,9 +828,9 @@
         year = year || wrapper.querySelector('.select-year').value;
 
         var element = dsjs.element;
-        var minDate = element.getAttribute('dsjs-min') || '1970-01-01',
-            maxDate = element.getAttribute('dsjs-max') || '2038-01-19',
-            className = element.getAttribute('data-selected') ? 'selected' : 'highlighted';
+        var minDate = element.attr('dsjs-min') || '1970-01-01',
+            maxDate = element.attr('dsjs-max') || '2038-01-19',
+            className = element.attr('data-selected') ? 'selected' : 'highlighted';
 
         var data = {
             days: new Date(year, month, 0).getDate(),
@@ -912,8 +912,8 @@
 
         // buttons bridge?
         // if (componentType == 'daterange') {
-        //     minDate = element.getAttribute('dsjs-daterange-start').split('-') || '1970-01-01';
-        //     maxDate = element.getAttribute('dsjs-daterange-end').split('-') || '2038-01-19';
+        //     minDate = element.attr('dsjs-daterange-start').split('-') || '1970-01-01';
+        //     maxDate = element.attr('dsjs-daterange-end').split('-') || '2038-01-19';
 
         //     var startDate = (dsjs.startDate) ? dsjs.startDate.asInt : parseInt(`${minDate[0]}${zeroPad(minDate[1])}${zeroPad(minDate[2])}`);;
         //     var endDate = (dsjs.endDate) ? dsjs.endDate.asInt : parseInt(`${maxDate[0]}${zeroPad(maxDate[1])}${zeroPad(maxDate[2])}`);
@@ -922,7 +922,7 @@
         //     wrapper.querySelector('tbody td[data-date="'+ endDate +'"]').classList += ' selected-end';
         //     var cells = wrapper.querySelectorAll('tbody td');
         //     cells.forEach(cell => {
-        //         var cellDate = parseInt(cell.getAttribute('data-date'))
+        //         var cellDate = parseInt(cell.attr('data-date'))
         //         if (cellDate > startDate && cellDate < endDate) {
         //             cell.classList += ' in-range';
         //         }
@@ -942,10 +942,10 @@
             }
         }
         var parent = getParent(sel, 'div', 'dsjs-widget');
-        parent.querySelector('#dsjs-template').setAttribute('style', 'display:block');
+        parent.querySelector('#dsjs-template').attr('style', 'display:block');
         parent.querySelector('#dsjs-template-option').innerText = value;
         sel.style.width = (parent.querySelector('#dsjs-template').offsetWidth * 1.02) + "px";
-        parent.querySelector('#dsjs-template').setAttribute('style', 'display:none');
+        parent.querySelector('#dsjs-template').attr('style', 'display:none');
     };
 
     dsjs.renderCalendar = (element) => {
@@ -979,8 +979,21 @@
         showCalendar(wrapper, nextYear, nextMonth);
     };
 
+    dsjs.setValues = () => {
+        document.querySelectorAll('.dsjs').forEach((ele) => {
+            ele.value = ele.attr('data-value');
+        });
+    };
 
     // --- utility functions ---
+
+    HTMLElement.prototype.attr = function(key, value) {
+        if (value === undefined) {
+            return this.getAttribute(key);
+        }
+        this.setAttribute(key, value);
+        return value;
+    };
 
     const zeroPad = (val) => {
         val = parseInt(val);
@@ -998,7 +1011,7 @@
 
     const replaceComponent = (el, str) => {
         var wrapper = document.createElement('span');
-        wrapper.setAttribute('class', 'dsjs-'+ el.getAttribute('dsjs-type'));
+        wrapper.attr('class', 'dsjs-'+ el.attr('dsjs-type'));
         wrapper.innerHTML = str;
         el.style.display = 'none';
         el.parentNode.insertBefore(wrapper, el);
