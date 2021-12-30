@@ -11,6 +11,8 @@
 - Pure javascript = no dependencies
 - Pretty :)
 
+### [Live demo](https://tradologics.github.io/dateselect.js/dist/demo.html)
+
 
 ## Examples
 
