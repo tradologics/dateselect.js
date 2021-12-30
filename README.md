@@ -11,7 +11,7 @@
 - Pure javascript = no dependencies
 - Pretty :)
 
-### [Live demo](https://tradologics.github.io/dateselect.js/dist/demo.html)
+<p><strong><a href="https://tradologics.github.io/dateselect.js/dist/demo.html" target="demo">Live demo</a></strong></p>
 
 
 ## Examples
