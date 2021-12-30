@@ -49,7 +49,8 @@ That's it!
 
 ### Where data is stored?
 
-The selected date/time/range will be saved in the `data-value` attribute of the original input element, so you might need to replace the input's `value` with the `data-value` value before submitting the form.
+The selected date/time/range will be saved in the `data-value` attribute of the original input element, so you might need to replace the input's `value` with the `data-value` value before submitting the form by calling `dsjs.setValues()`.
+
 
 **The data is stored in the following formats:**
 
