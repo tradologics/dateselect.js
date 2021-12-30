@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" x-class="dark">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -7,18 +7,34 @@
     <meta http-equiv="cleartype" content="on">
     <title>DateSelect.js</title>
     <link rel="stylesheet" type="text/css" href="demo-style.css" media="all">
-    <meta name="robots" content="noindex">
 </head>
-<body style="margin:20px">
+<body style="margin:40px 20px">
 
+<form style="max-width: 640px; margin:auto">
 <h1>DateSelect.js</h1>
+<h3>Minimalistic date/time/range selector, written in Javascript</h3>
+<p>
+<a href="https://tradologics.com/"><img alt="npm Version" src="https://img.shields.io/badge/By-Tradologics-7269a6"></a>
+<a href="https://github.com/tradologics/dateselect.js"><img alt="Star this repo" src="https://img.shields.io/github/stars/tradologics/dateselect.js.svg?style=social&label=Star&maxAge=60"></a>
+<a href="https://twitter.com/aroussi"><img alt="Follow me on" src="https://img.shields.io/twitter/follow/tradologics.svg?style=social&label=Follow&maxAge=60"></a>
+</p>
 
-<form>
 
 
 <p>&nbsp;</p>
 
-
+<h2>Date selector</h2>
+<h4>Code</h4>
+<pre style="background: #f0f0f0; padding:20px">
+&lt;input name="date" <strong>class="dsjs"</strong>
+    <strong>dsjs-type="date"</strong>
+    dsjs-min="2021-10-10"
+    dsjs-max="2021-10-20"
+    dsjs-date="2021-10-13"
+    dsjs-month-format="full"
+&gt;&lt;/input&gt;
+</pre>
+<h4>Output</h4>
 <input name="date" type="text" class="dsjs"
     dsjs-type="date"
     dsjs-min="2021-10-10"
@@ -28,8 +44,21 @@
     style="width:160px"
     ></input>
 
-<p>&nbsp;</p>
-
+<hr style="border:0;border-top:1px solid #ccc;margin:40px 0">
+<h2>Date-time selector</h2>
+<h4>Code</h4>
+<pre style="background: #f0f0f0; padding:20px">
+&lt;input name="date" <strong>class="dsjs"</strong>
+    <strong>dsjs-type="datetime"</strong>
+    dsjs-min="2021-10-10T00:00:00+00:00"
+    dsjs-max="today"
+    dsjs-datetime="2021-10-13T00:00:00+00:00"
+    dsjs-timezone="true"
+    dsjs-timestamp="true"
+    dsjs-month-format="short"
+&gt;&lt;/input&gt;
+</pre>
+<h4>Output</h4>
 <input name="datetime" type="text" class="dsjs"
     dsjs-type="datetime"
     dsjs-min="2021-10-10T00:00:00+00:00"
@@ -41,8 +70,21 @@
     style="width:280px"
     ></input>
 
-<p>&nbsp;</p>
-
+<hr style="border:0;border-top:1px solid #ccc;margin:40px 0">
+<h2>Date-range selector</h2>
+<h4>Code</h4>
+<pre style="background: #f0f0f0; padding:20px">
+&lt;input name="date" <strong>class="dsjs"</strong>
+    <strong>dsjs-type="daterange"</strong>
+    dsjs-type="daterange"
+    dsjs-min="2010-01-01"
+    dsjs-max="2022-12-31"
+    dsjs-daterange-start="2021-09-21"
+    dsjs-daterange-end="2021-11-18"
+    dsjs-month-format="short"
+&gt;&lt;/input&gt;
+</pre>
+<h4>Output</h4>
 <input name="daterange" type="text" class="dsjs"
     dsjs-type="daterange"
     dsjs-min="2010-01-01"
@@ -53,12 +95,15 @@
     style="width:220px"
     ></input>
 
-</form>
+<hr style="border:0;border-top:1px solid #ccc;margin:40px 0">
+<p>&nbsp;</p>
+<h3>License</h3>
+
+<p>
+    <strong>DateSelect.js</strong> is distributed under the Apache Software License. See the <a href="https://github.com/tradologics/dateselect.js/blob/main/LICENSE">LICENSE file</a> in the release for details.
+</p>
 
 </form>
-
-<p>&nbsp;</p>
-<p>&nbsp;</p>
 
 <!-- dark/light/system mode utility -->
 <script src="appearance.min.js" onload="Appearance.set('system');"></script>
