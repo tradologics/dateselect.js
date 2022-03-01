@@ -3,13 +3,15 @@
 .dsjs-widget *::after {
     box-sizing: border-box;
 }
+.dsjs-wrapper {
+    position: absolute;
+    z-index: 20;
+}
 .dsjs-widget {
-    font-family: inter,-apple-system,"system-ui","Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-    font-size: 14px;
+    font-family: inherit;
+    font-size: 0.75rem;
     line-height: 1;
     color: #383844;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     background: #fff;
     box-shadow: 0 2px 5px rgba(0,0,0,.05);
     padding: 10px;
@@ -20,7 +22,7 @@
     visibility: hidden;
 }
 .dsjs-error {
-    font-family: inter,-apple-system,"system-ui","Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-family: inherit;
     padding: 4px 0 2px;
     font-size: 11px;
     color:#df3a3a
@@ -64,11 +66,11 @@
     text-align: center;
     color: #67677c;
     border-radius: 3px 3px 0 0;
-    font-size: 14px
+    font-size: 0.75rem;
 }
 .dsjs-widget select {
     appearance: none;
-    background-color: transparent;
+    background: transparent;
     border: none;
     outline: none;
     padding: 0;
@@ -158,12 +160,14 @@
     width: 224px;
 }
 .dsjs-widget table th, .dsjs-widget table td {
+    font-size: inherit;
     text-align: center;
     font-weight: 400;
     padding: 0;
     width: 32px;
 }
 .dsjs-widget table th {
+    font-size: inherit;
     font-weight: 500;
     color: #333;
     height: 32px;
